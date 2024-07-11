@@ -27,18 +27,20 @@ Hubble will be installed into ~/hubble and will be run via Docker in the backgro
 Upgrading Hubble
 The Hubble script creates a crontab entry and will automatically upgrade the hub every week. To upgrade manually, run:
 
-bash
+```
 cd ~/hubble && ./hubble.sh upgrade
+```
 Install via Docker
 Hubble can also be set up by running the docker image directly. To do this:
 
 Check out the hub-monorepo locally.
 From the root of this folder navigate to apps/hubble
 Generate your identity key pair with docker compose.
-bash
+```
 docker compose run hubble yarn identity create
+```
 Create a .env file in apps/hubble with your Ethereum RPC endpoints:
-bash
+```
 # Set this to your L1 Mainnet ETH RPC URL
 ETH_MAINNET_RPC_URL=your-ETH-mainnet-RPC-URL
 
@@ -47,24 +49,27 @@ OPTIMISM_L2_RPC_URL=your-L2-optimism-RPC-URL
 
 # Set this to your Farcaster FID
 HUB_OPERATOR_FID=your-fid
+```
 Follow the instructions to set connect to a network.
 
 Start Hubble with docker compose in detached mode:
 
-bash
+```
 docker compose up hubble -d
+```
 Docker compose will start a Hubble container that exposes ports for networking and writes data to .hub and .rocks directories. Hubble will now sync with the contracts and other hubble instances to download all messages on the network.
 
 To view the status of the sync and hubble, follow the logs
-bash
+```
 docker compose logs -f hubble
+```
 Follow the instructions in the monitoring instructions to set up Grafana and view your Hub's status in real-time.
 Upgrading Hubble
 Navigate to apps/hubble in hub-monorepo and run:
-
-bash
+```
 git checkout main && git pull
 docker compose stop && docker compose up -d --force-recreate --pull always
+```
 Installing from source
 Hubble can also be built and run directly from source without Docker.
 
@@ -90,19 +95,22 @@ yarn start --eth-mainnet-rpc-url <your ETH-mainnet-RPC-URL> --l2-rpc-url <your O
 Upgrading Hubble
 To upgrade hubble, find the latest release tag and checkout that version and build.
 
-bash
+```
 git fetch --tags # to fetch the latest tags
 git checkout @farcaster/hubble@latest # Or use a specific version.
 yarn install && yarn build # in the root folder
+```
 Running commands
 Check the logs to ensure your hub is running successfully:
 
-bash
+```
 docker compose logs -f hubble
+```
 Open up a shell inside the hubble container by running:
 
-bash
+```
 docker compose exec hubble /bin/sh
+```
 Troubleshooting
 If upgrading from a non-docker deployment, make sure .hub and .rocks directories are writable for all users.
 
@@ -110,15 +118,17 @@ If upgrading from 1.3.3 or below, please set ETH_MAINNET_RPC_URL=your-ETH-mainne
 
 If you're changing your Hub from one network to another, you'll need to delete your database contents:
 
-bash
+```
 docker compose stop && docker compose run --rm hubble yarn dbreset
+```
 To pull the image yourself, you can run:
-bash
+```
 # Get the latest image
 docker pull farcasterxyz/hubble:latest
 
 # Get a specific release (v1.4.0)
 docker pull farcasterxyz/hubble@v1.4.0
+```
 To set the Hub operator FID
 If you are running via docker or the script, please set this in your .env file: HUB_OPERATOR_FID=your-fid
 If you are running via source yarn start --hub-operator-fid <your-fid>
