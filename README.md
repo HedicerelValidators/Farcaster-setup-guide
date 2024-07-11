@@ -5,19 +5,21 @@ We recommend running Hubble on an always-on server that has Docker installed.
 
 Requirements
 Hubble can be set up in less than 30 minutes. You'll need a machine that has:
-
+```
 - **16 GB of RAM**
 - **4 CPU cores or vCPUs**
 - **40 GB of free storage**
 - **A public IP address with ports 2281 - 2283 exposed**
 - **RPC endpoints for Ethereum and Optimism Mainnet.** (use Alchemy, Infura, or QuickNode)
+```
 See tutorials for instructions on how to set up cloud providers to run Hubble.
 
 Install via Script
 The install script is the simplest way to set up Hubble.
 
-```bash
-curl -sSL https://download.thehubble.xyz/bootstrap.sh | bash```
+```
+curl -sSL https://download.thehubble.xyz/bootstrap.sh | bash
+```
 If you're using macOS, you'll need to have docker installed and running.
 
 Hubble will be installed into ~/hubble and will be run via Docker in the background, along with Grafana and Prometheus for monitoring. If you have trouble with the script, try installing via docker.
